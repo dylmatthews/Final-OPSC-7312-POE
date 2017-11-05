@@ -1,11 +1,13 @@
 package am.dx.varsityspecials.www.varsityspecials;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Geocoder;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -27,12 +29,15 @@ public class Question1B extends FragmentActivity implements OnMapReadyCallback {
     private LocationListener listener;
     Geocoder gc;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question2);
         gc = new Geocoder(this, Locale.getDefault());
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -43,13 +48,22 @@ public class Question1B extends FragmentActivity implements OnMapReadyCallback {
             @Override
             public void onLocationChanged(android.location.Location location) {
 
+           //     Marker remove = ;
+
+
                 Double latitude = location.getLatitude();
                 Double longitude = location.getLongitude();
                 LatLng Curlocation = new LatLng(latitude, longitude);
-                mMap.clear();
                 mMap.addMarker(new MarkerOptions().position(Curlocation).title("Current location"));
+              //  mMap.clear();
+
+
+
 
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Curlocation,16));
+
+
+
 
             }
 
@@ -65,11 +79,16 @@ public class Question1B extends FragmentActivity implements OnMapReadyCallback {
 
             @Override
             public void onProviderDisabled(String provider) {
+                Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(i);
 
             }
         };
 
     }
+
+
+
 
 
     /**
@@ -96,7 +115,7 @@ public class Question1B extends FragmentActivity implements OnMapReadyCallback {
         }
         if (isLocationPermissionGranted())
         {
-            locationManager.requestLocationUpdates("gps", 100, 0, listener);
+            locationManager.requestLocationUpdates("gps", 100, 5, listener);
         }
         else {
             Toast.makeText(Question1B.this, "Accept the Location permission", Toast.LENGTH_SHORT).show();

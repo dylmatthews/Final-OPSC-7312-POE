@@ -21,11 +21,11 @@ public class navcopyright extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private NavigationView navigationView;
-    TextView copyright;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef;
+    private  TextView copyright;
+    private  FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //initializing
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navcopyright);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -44,10 +44,10 @@ public class navcopyright extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() { //sets listening on database
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) { //when datachanges
 
                 showData(dataSnapshot);
 
@@ -70,13 +70,10 @@ public class navcopyright extends AppCompatActivity
 
         if (ds.getKey().equals("copyright")) {
           //  Toast.makeText(this, ds.getKey(), Toast.LENGTH_SHORT).show();
-            String text = ds.child("copyright").getValue().toString();
+            String text = ds.child("copyright").getValue().toString(); //gets copyrgith info and sets it
             text = text.replace("#","\n");
             copyright.setText(text);
-            // Toast.makeText(this, , Toast.LENGTH_SHORT).show();
-            //Toast.makeText(this, ds.getValue().toString(), Toast.LENGTH_SHORT).show();
-            //Toast.makeText(this, ds.child(ds.getKey()).getValue(), Toast.LENGTH_SHORT).show();
-            // }
+
         }
     }
 
@@ -132,6 +129,18 @@ public class navcopyright extends AppCompatActivity
         else if (id==R.id.nav_submit)
         {
             startActivity(new Intent(getApplicationContext(), navsubmit.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.nav_1a)
+        {
+            startActivity(new Intent(getApplicationContext(), navQ1a.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.content_nav_q1_b)
+        {
+            startActivity(new Intent(getApplicationContext(), Question1B.class));
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }

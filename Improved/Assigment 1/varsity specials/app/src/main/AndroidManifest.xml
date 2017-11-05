@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
-
     <uses-permission
         android:name="android.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
@@ -32,8 +31,8 @@
             android:value="AIzaSyC9jPdVyt5Y3FakAuPGXdMWZbxNgdi05JY" />
 
         <activity
-            android:name=".navlogin"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".splash"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -109,6 +108,17 @@
         <activity
             android:name=".navcopyright"
             android:label="@string/title_activity_navcopyright"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".navQ1a"
+            android:label="@string/title_activity_nav_q1a"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".navQ1B"
+            android:label="@string/title_activity_nav_q1_b"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Question1B" />
+        <activity android:name=".navlogin"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

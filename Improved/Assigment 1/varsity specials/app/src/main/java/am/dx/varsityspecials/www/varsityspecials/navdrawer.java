@@ -46,15 +46,15 @@ public class navdrawer extends AppCompatActivity
 
     private CardArrayAdapter cardArrayAdapter;
     private ListView listView;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef;
     private NavigationView navigationView;
-    ActionBarDrawerToggle adbt;
-    DrawerLayout dl;
-    Toolbar toolbar;
-    FirebaseUser user;
-    FirebaseAuth myAuth;
-    DatabaseReference popUp;
+    private ActionBarDrawerToggle adbt;
+    private DrawerLayout dl;
+    private Toolbar toolbar;
+    private FirebaseUser user;
+    private FirebaseAuth myAuth;
+    private DatabaseReference popUp;
     private StorageReference storageRef = FirebaseStorage.getInstance().getReference();
     private ImageView iv;
 
@@ -65,7 +65,7 @@ public class navdrawer extends AppCompatActivity
     TextView line;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {  //initializing
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navdrawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -114,7 +114,7 @@ public class navdrawer extends AppCompatActivity
         myRef.addValueEventListener(new ValueEventListener() {
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) { //when datachanges
 
                 showData(dataSnapshot);
 
@@ -129,7 +129,7 @@ public class navdrawer extends AppCompatActivity
 
         popUp.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) { //when datachanges
 
                 showPopUp(dataSnapshot);
             }
@@ -142,7 +142,7 @@ public class navdrawer extends AppCompatActivity
 
     }
 
-    private void showPopUp(DataSnapshot dataSnapshot) {
+    private void showPopUp(DataSnapshot dataSnapshot) { //makes pop up
 
 
 
@@ -167,14 +167,10 @@ public class navdrawer extends AppCompatActivity
             int random = ran.nextInt(range) + 0;
             tte = tte + "\t\t" + random;
 
-//        }
 
-            //      Toast.makeText(this, tte, Toast.LENGTH_SHORT).show();
-
-
-            String title = ds.get(random).child("title").getValue().toString();
-            String message = ds.get(random).child("message").getValue().toString();
-            final String img = ds.get(random).child("img").getValue().toString();
+            String title = ds.get(random).child("title").getValue().toString(); //gets title field
+            String message = ds.get(random).child("message").getValue().toString(); //gets message field
+            final String img = ds.get(random).child("img").getValue().toString(); //gets img field
 
             final AlertDialog.Builder popup = new AlertDialog.Builder(this);
 
@@ -188,7 +184,7 @@ public class navdrawer extends AppCompatActivity
             boolean imgNotExists = true;
             final File[] imgAr = check.listFiles();
 
-            for (int i = 0; i < imgAr.length; i++) {
+            for (int i = 0; i < imgAr.length; i++) { //checks if image exits
 
                 if (img.equals(imgAr[i].getName())) {
                  //   Toast.makeText(this, "Image exists", Toast.LENGTH_SHORT).show();
@@ -216,7 +212,7 @@ public class navdrawer extends AppCompatActivity
             }
 
 
-            if (imgNotExists) {
+            if (imgNotExists) { //if it doesnt exist download image
                 storageRef.child(ref).getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
@@ -241,42 +237,7 @@ public class navdrawer extends AppCompatActivity
                     }
                 });
 
-
-
-
-
-            //Long.MAX_VALUE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-          /*  @Override
-            public void onSuccess(byte[] bytes) {
-                // Use the bytes to display the image
-                final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                iv.setImageBitmap(bitmap);
-
-
-                popup.setIcon(iv.getDrawable());
-                popup.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });*/
-
-
-
-
-
-
-
-
             }
-      /*  }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.i("shit", exception.getMessage());
-                Toast.makeText(navdrawer.this, "shit" + exception.getMessage().toString(), Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
 
 
 
@@ -383,7 +344,7 @@ public class navdrawer extends AppCompatActivity
     public void logging(String t)
     {
         Log.i("Reading firebase", t);
-    }
+    } //method used for logging
 
 
     @Override
@@ -437,6 +398,19 @@ public class navdrawer extends AppCompatActivity
         else if (id==R.id.nav_submit)
         {
             startActivity(new Intent(getApplicationContext(), navsubmit.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+
+        else if (id==R.id.nav_1a)
+        {
+            startActivity(new Intent(getApplicationContext(), navQ1a.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.nav_1B)
+        {
+            startActivity(new Intent(getApplicationContext(), navQ1B.class));
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }

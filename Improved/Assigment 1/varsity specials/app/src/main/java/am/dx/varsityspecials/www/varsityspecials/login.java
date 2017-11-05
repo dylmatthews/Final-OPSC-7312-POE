@@ -47,6 +47,7 @@ public class login extends AppCompatActivity  implements NavigationView.OnNaviga
             mAuth = FirebaseAuth.getInstance();
             FirebaseCrash.log("Activity created");
 
+
             if (FirebaseDatabase.getInstance() != null) {
                // toast("Gone online onResume Area");
                 //toast("about to");

@@ -29,7 +29,7 @@ public class CardArrayAdapter  extends ArrayAdapter<Card> {
     }
 
     @Override
-    public void add(Card object) {
+    public void add(Card object) { //adds object
         cardList.add(object);
         super.add(object);
     }
@@ -37,15 +37,15 @@ public class CardArrayAdapter  extends ArrayAdapter<Card> {
     @Override
     public int getCount() {
         return this.cardList.size();
-    }
+    } //gets count of items
 
     @Override
     public Card getItem(int index) {
         return this.cardList.get(index);
-    }
+    } //gets selected item
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) { //sets data grid view
         View row = convertView;
         CardViewHolder viewHolder;
         if (row == null) {

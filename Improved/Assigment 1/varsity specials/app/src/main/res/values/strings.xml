@@ -22,6 +22,8 @@
     <string name="title_activity_navresetpassword">navresetpassword</string>
     <string name="title_activity_navsubmit">navsubmit</string>
     <string name="title_activity_navcopyright">navcopyright</string>
+    <string name="title_activity_nav_q1a">navQ1a</string>
+    <string name="title_activity_nav_q1_b">navQ1B</string>
 
 
 </resources>

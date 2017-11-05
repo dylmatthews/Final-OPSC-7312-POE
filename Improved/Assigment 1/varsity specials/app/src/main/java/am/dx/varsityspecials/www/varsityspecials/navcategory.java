@@ -25,8 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 public class navcategory extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private CardArrayAdapter cardArrayAdapter;
@@ -36,7 +36,7 @@ public class navcategory extends AppCompatActivity
     private  String category[];
     private NavigationView navigationView;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //initializing
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navdrawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -56,24 +56,20 @@ public class navcategory extends AppCompatActivity
         day = getIntent().getStringExtra("day");
         area = getIntent().getStringExtra("area");
         myRef = database.getReference("regions/"+area + "/" + day);
-        setTitle(day.substring(1)+ " specials");
+        setTitle(day.substring(1)+ " specials"); //sets title
         listView.addHeaderView(new View(this));
         listView.addFooterView(new View(this));
         if (FirebaseDatabase.getInstance() != null) {
-            //  toast("Gone online onResume Area");
 
             FirebaseDatabase.getInstance().goOnline();
-
-
-
         }
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() { //sets listening on database
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) { //when datachanges
 
-                showData(dataSnapshot);
+                showData(dataSnapshot); //sends  data to method
 
             }
 
@@ -86,22 +82,22 @@ public class navcategory extends AppCompatActivity
     }
     public void toast(String t) {
         Toast.makeText(this, t, Toast.LENGTH_SHORT).show();
-    }
+    } //method used for toasting
 
     public void logging(String t) {
         Log.i("Reading firebase", t);
-    }
+    } //method used for logging
 
     private void showData(DataSnapshot dataSnapshot) {
         // toast("hello show data");
-        cardArrayAdapter = new CardArrayAdapter(getApplicationContext(), R.layout.list_item_card);
+        cardArrayAdapter = new CardArrayAdapter(getApplicationContext(), R.layout.list_item_card); //sends context and layout file to use
         //cardArrayAdapter.clear();
 
         int cnt = 0;
         //  Iterable<DataSnapshot> lstSnapshots = ;
         try {
 
-            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+            for (DataSnapshot ds : dataSnapshot.getChildren()) { //for each loop to get data
 
                 String key = ds.getKey();
                 logging("key " + key);
@@ -129,12 +125,12 @@ public class navcategory extends AppCompatActivity
 
                     }
                 }
-                // Toast.makeText(this, "Counter was " + cntPos, Toast.LENGTH_SHORT).show();
+
 
                 Card card = new Card(key.substring(cntPos));
                 cardArrayAdapter.add(card);
 
-                listView.setAdapter(cardArrayAdapter);
+                listView.setAdapter(cardArrayAdapter); //adds adapater
 
 
                 try {
@@ -255,6 +251,18 @@ public class navcategory extends AppCompatActivity
         else if (id==R.id.nav_submit)
         {
             startActivity(new Intent(getApplicationContext(), navsubmit.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.nav_1a)
+        {
+            startActivity(new Intent(getApplicationContext(), navQ1a.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.content_nav_q1_b)
+        {
+            startActivity(new Intent(getApplicationContext(), Question1B.class));
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }

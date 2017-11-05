@@ -24,8 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 public class navdays extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef;
+    private  FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef;
     private  String area = "";
     private String days[];
     private CardArrayAdapter cardArrayAdapter;
@@ -33,7 +33,7 @@ public class navdays extends AppCompatActivity
     private NavigationView navigationView;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //initializing
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navdrawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -54,7 +54,7 @@ public class navdays extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
         navigationView.setNavigationItemSelectedListener(this);
-        myRef = database.getReference("regions/" +area);
+        myRef = database.getReference("regions/" +area); //sets reference
       setTitle(area);
         days = new String[10];
         listView.addHeaderView(new View(this));
@@ -70,7 +70,7 @@ public class navdays extends AppCompatActivity
         myRef.addValueEventListener(new ValueEventListener() {
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {  //when datachanges
                 showData(dataSnapshot);
 
             }
@@ -87,7 +87,7 @@ public class navdays extends AppCompatActivity
     public void logging(String t)
     {
         Log.i("Reading firebase", t);
-    }
+    } //method used for logging
 
     private void showData(DataSnapshot dataSnapshot) {
         // toast("hello show data");
@@ -100,7 +100,7 @@ public class navdays extends AppCompatActivity
 
             for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                String key = ds.getKey();
+                String key = ds.getKey(); //gets key
 
                 logging("key " + key);
 
@@ -123,7 +123,7 @@ public class navdays extends AppCompatActivity
 
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view,
-                                                int position, long id) {
+                                                int position, long id) { //on list viuew click
                             logging("shit about to happen");
                             // TODO Auto-generated method stub
                             //toast("Shit hello");
@@ -236,6 +236,19 @@ public class navdays extends AppCompatActivity
         else if (id==R.id.nav_submit)
         {
             startActivity(new Intent(getApplicationContext(), navsubmit.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+
+        else if (id==R.id.nav_1a)
+        {
+            startActivity(new Intent(getApplicationContext(), navQ1a.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.nav_1B)
+        {
+            startActivity(new Intent(getApplicationContext(), Question1B.class));
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }

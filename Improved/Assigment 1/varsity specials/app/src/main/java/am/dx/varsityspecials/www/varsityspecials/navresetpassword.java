@@ -20,10 +20,10 @@ public class navresetpassword extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
-    FirebaseAuth mAuth;
-    EditText etEmail;
+    private FirebaseAuth mAuth;
+    private EditText etEmail;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //initializing
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navresetpassword);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -43,7 +43,7 @@ public class navresetpassword extends AppCompatActivity
         etEmail = (EditText) findViewById(R.id.etEmailReset);
         mAuth=FirebaseAuth.getInstance();
     }
-    public void onPassReset(View view)
+    public void onPassReset(View view) //button click for reset password
     {
         String email = etEmail.getText().toString();
         if (!email.isEmpty()) {
@@ -109,6 +109,18 @@ public class navresetpassword extends AppCompatActivity
         else if (id==R.id.nav_submit)
         {
             startActivity(new Intent(getApplicationContext(), navsubmit.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.nav_1a)
+        {
+            startActivity(new Intent(getApplicationContext(), navQ1a.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.nav_1B)
+        {
+            startActivity(new Intent(getApplicationContext(), Question1B.class));
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }

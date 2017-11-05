@@ -14,11 +14,9 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -48,8 +46,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private List<Marker> destinationMarkers = new ArrayList<>();
     private List<Polyline> polylinePaths = new ArrayList<>();
     private ProgressDialog progressDialog;
-    LocationManager locationManager;
-    Location location;
+    private LocationManager locationManager;
+    private Location location;
     private double latitude;
     private double longitude;
     private String area = "";
@@ -74,10 +72,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-            listener = new LocationListener() {
+            listener = new LocationListener() { //listeneer for location change
                 @Override
-                public void onLocationChanged(Location locatio) {
-                    // Toast.makeText(MapsActivity.this, "Location changed", Toast.LENGTH_SHORT).show();
+                public void onLocationChanged(Location locatio) { //when location changes
+
 
                     // Called when a new location is found by the network location provider.
                     if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -91,21 +89,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         return;
                     }
 
-                    //  locationManager = (LocationManager)
-                    //         getSystemService(Context.LOCATION_SERVICE);
-                    //  Criteria criteria = new Criteria();
-                    // criteria.setAccuracy(Criteria.ACCURACY_FINE);
 
-                    // location = locationManager.getLastKnownLocation(locationManager
-                    //    .NETWORK_PROVIDER);
+                    latitude = locatio.getLatitude(); //sets latitude
+                    longitude = locatio.getLongitude(); //sets longitude
 
-                    latitude = locatio.getLatitude();
-                    longitude = locatio.getLongitude();
-                  //  progressDialog.dismiss();
 
-                    Log.i("ashitLoca", " " + latitude + "," + longitude);
-                    // Toast.makeText(this, latitude + " , " + longitude, Toast.LENGTH_SHORT).show();
-                    // sendRequest();
+
 
                 }
 
@@ -121,7 +110,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 @Override
                 public void onProviderDisabled(String provider) {
-                    Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    Intent i = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS); //asks user to enable location
                     startActivity(i);
                 }
 
@@ -131,19 +120,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Toast.makeText(this, "Shit " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
     }
 
     public void onFindPath(View view)
     {
         try {
-           // progressDialog = ProgressDialog.show(getBaseContext(), "Please wait.",
-             //       "Finding Location..!", true);
 
-           // Toast.makeText(this, "Button clicked", Toast.LENGTH_SHORT).show();
-            sendRequest();
+            sendRequest();  //method to check location access
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -151,14 +135,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
     private void sendRequest() throws InterruptedException {
-        // String origin = etOrigin.getText().toString();
-        // String destination = etDestination.getText().toString();
-        locationManager.requestLocationUpdates("gps", 100, 5, listener);
 
+        locationManager.requestLocationUpdates("gps", 100, 5, listener); //sets update to update ever 5 meters
         locationManager = (LocationManager)
                 getSystemService(Context.LOCATION_SERVICE);
-        // Criteria criteria = new Criteria();
-        //criteria.setAccuracy(Criteria.ACCURACY_FINE);
+
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -171,20 +152,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
 
-        //location = locationManager.getLastKnownLocation(locationManager//.NETWORK_PROVIDER);//.GPS_PROVIDER);
-        //        .getBestProvider(criteria, false));
-        //latitude = location.getLatitude();
-        //longitude = location.getLongitude();
-       // progressDialog = ProgressDialog.show(getBaseContext(), "Please wait.",
-            //    "Finding Location..!", true);
 
 
-        origin = latitude + "," + longitude;
-        //Toast.makeText(this, "origin" + origin, Toast.LENGTH_SHORT).show();
-       // Log.i("logOrigin", origin);
+        origin = latitude + "," + longitude; //sets origin co ordinates
 
 
-        if (origin.isEmpty()) {
+        if (origin.isEmpty()) { //checks to see if origin is empty
             Toast.makeText(this, "Please enter origin address!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -198,37 +171,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-       // Toast.makeText(this, "If route not found, click again. Location not found", Toast.LENGTH_LONG).show();
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-      //  progressDialog = ProgressDialog.show(getBaseContext(), "Please wait.",
-        //        "Finding Location..!", true);
-        //  LatLng hcmus = new LatLng(10.762963, 106.682394);
-        locationManager = (LocationManager)
-                getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
-        locationManager.requestLocationUpdates("gps", 100, 5, listener);
 
-        while (latitude+""=="0.0 , 0.0" && longitude+""=="0.0 , 0.0")
-        {
-            locationManager.requestLocationUpdates("gps", 100, 5, listener);
-        }
-     //   progressDialog.dismiss();
-        //location = locationManager.getLastKnownLocation(locationManager//NETWORK_PROVIDER);
-        //      .getBestProvider(criteria, false));
-        // latitude = location.getLatitude();
-        //longitude = location.getLongitude();
-       // Toast.makeText(this, latitude + " , " + longitude, Toast.LENGTH_SHORT).show();
-        LatLng hcmus = new LatLng(latitude, longitude);
-        //  LatLng l = new LatLng(mMap.getMyLocation().getLatitude(),mMap.getMyLocation().getLongitude());
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hcmus, 18));
+        locationManager = (LocationManager)
+                getSystemService(Context.LOCATION_SERVICE); //sets logion manager
+        Criteria criteria = new Criteria(); //new cirteria
+        criteria.setAccuracy(Criteria.ACCURACY_FINE); //sets accuracy
+        locationManager.requestLocationUpdates("gps", 100, 5, listener); //sets location request to every 5 meters
+
+
+
+        LatLng cur = new LatLng(latitude, longitude); //makes long lat viable and sets
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cur, 18)); //sets zome
         originMarkers.add(mMap.addMarker(new MarkerOptions()
                 .title("Current location")
-                .position(hcmus)));
+                .position(cur)));  //makes markers
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -240,17 +203,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        // mMap.setMyLocationEnabled(true);
-        ///Toast.makeText(this, (CharSequence) mMap.getMyLocation(), Toast.LENGTH_SHORT).show();
-        // LatLng loc = new LatLng(mMap.setMyLocation());
+
 
     }
 
 
     @Override
     public void onDirectionFinderStart() {
-        progressDialog = ProgressDialog.show(this, "Please wait.",
-                "Finding direction..!", true);
 
         if (originMarkers != null) {
             for (Marker marker : originMarkers) {
@@ -284,13 +243,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         super.onPause();
-        locationManager.removeUpdates(listener);
+        locationManager.removeUpdates(listener);//stops updates for location
     }
 
 
 
     @Override
-    public void onDirectionFinderSuccess(List<Journey> routes) {
+    public void onDirectionFinderSuccess(List<Journey> routes) { //this makes the polines
         //this code was taken ands adapted from https://github.com/hiepxuan2008/GoogleMapDirectionSimple/tree/master/app/src/main/java/Modules
 
         progressDialog.dismiss();

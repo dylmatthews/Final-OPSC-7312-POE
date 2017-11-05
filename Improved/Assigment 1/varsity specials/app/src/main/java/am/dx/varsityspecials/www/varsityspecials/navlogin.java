@@ -29,16 +29,16 @@ public class navlogin extends AppCompatActivity
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    EditText em;
-    EditText pa;
-    SharedPreferences loginpref;
-    SharedPreferences login;
-    String prefName = "login";
+    private EditText em;
+    private EditText pa;
+    private SharedPreferences loginpref;
+    private SharedPreferences login;
+    private String prefName = "login";
     private  String email= "";
     private  String password="";
     private NavigationView navigationView;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //initializing
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navlogin);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -73,16 +73,9 @@ public class navlogin extends AppCompatActivity
                 // toast("about to login");
                 loginshared();
             }
-
-
-
-
-
-
-
     }
 
-    private void loginshared() {
+    private void loginshared() { //checks if a user saved data is there
         try{
             loginpref = getSharedPreferences(prefName,MODE_PRIVATE);
             email = loginpref.getString("email", "");
@@ -127,7 +120,7 @@ public class navlogin extends AppCompatActivity
 
     }
 
-    public void onSignUp(View view)
+    public void onSignUp(View view) //button click
     {
 
         Intent in = new Intent(navlogin.this,navsignup.class);
@@ -135,7 +128,7 @@ public class navlogin extends AppCompatActivity
     }
 
 
-    public void toast(String t)
+    public void toast(String t) // method used for toasting
     {
         Toast output= Toast.makeText(this, t, Toast.LENGTH_SHORT);
         output.setGravity(Gravity.CENTER,0,0);
@@ -148,7 +141,7 @@ public class navlogin extends AppCompatActivity
 
     }
 
-    public void onLogin(View view)
+    public void onLogin(View view) //button click for login
     {
 
 
@@ -280,7 +273,18 @@ public class navlogin extends AppCompatActivity
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }
-
+        else if (id==R.id.nav_1a)
+        {
+            startActivity(new Intent(getApplicationContext(), navQ1a.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.nav_1B)
+        {
+            startActivity(new Intent(getApplicationContext(), Question1B.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
         return true;
     }
 }

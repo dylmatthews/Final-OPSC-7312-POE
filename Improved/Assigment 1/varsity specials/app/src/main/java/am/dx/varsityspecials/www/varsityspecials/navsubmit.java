@@ -18,23 +18,23 @@ import android.widget.Toast;
 public class navsubmit extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    CheckBox cbMonday;
-    CheckBox cbTuesday;
-    CheckBox cbWednesday;
-    CheckBox cbThurssday;
-    CheckBox cbFriday;
-    CheckBox cbSaturday;
-    CheckBox cbSunday;
+    private CheckBox cbMonday;
+    private CheckBox cbTuesday;
+    private CheckBox cbWednesday;
+    private CheckBox cbThurssday;
+    private CheckBox cbFriday;
+    private CheckBox cbSaturday;
+    private CheckBox cbSunday;
 
-    EditText areaos;
-    EditText restaurant;
-    EditText tod;
-    EditText des;
-    EditText address;
+    private EditText areaos;
+    private EditText restaurant;
+    private EditText tod;
+    private EditText des;
+    private EditText address;
 
     private NavigationView navigationView;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //initializing
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navsubmit);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -65,7 +65,7 @@ public class navsubmit extends AppCompatActivity
 
     }
 
-    public void onSubmitSpecial(View view)
+    public void onSubmitSpecial(View view) //button click for submititng
     {
 
         String message ="My special submission is available on:\n";
@@ -206,9 +206,15 @@ public class navsubmit extends AppCompatActivity
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }
-        else if (id==R.id.nav_submit)
+        else if (id==R.id.nav_1a)
         {
-            startActivity(new Intent(getApplicationContext(), navsubmit.class));
+            startActivity(new Intent(getApplicationContext(), navQ1a.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.nav_1B)
+        {
+            startActivity(new Intent(getApplicationContext(), Question1B.class));
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }

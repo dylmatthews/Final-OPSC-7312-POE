@@ -25,8 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 public class navday extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef;
+   private FirebaseDatabase database = FirebaseDatabase.getInstance();
+   private DatabaseReference myRef;
 
     private cardarray2 cardArrayAdapter;
     private ListView listView;
@@ -38,7 +38,7 @@ public class navday extends AppCompatActivity
     private FirebaseAuth.AuthStateListener mAuthListener;
     private NavigationView navigationView;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {  //initializing
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navdrawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -82,7 +82,7 @@ public class navday extends AppCompatActivity
         myRef.addValueEventListener(new ValueEventListener() {
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) { //when datachanges
 
                 showData(dataSnapshot);
 
@@ -101,13 +101,13 @@ public class navday extends AppCompatActivity
 
     public void toast(String t) {
         Toast.makeText(this, t, Toast.LENGTH_SHORT).show();
-    }
+    } //method used for toasting
 
     public void logging(String t) {
         Log.i("Reading firebase", t);
-    }
+    } //method used for logging
 
-    private void showData(DataSnapshot dataSnapshot) {
+    private void showData(DataSnapshot dataSnapshot) { //method used for showing/getting data
         cardArrayAdapter = new cardarray2(getApplicationContext(), R.layout.list_item_card);
         //cardArrayAdapter.clear();
 
@@ -118,21 +118,13 @@ public class navday extends AppCompatActivity
 
             String key = ds.getKey();
             logging("key " + key);
-            // key = key+"/description";
-            //logging("key " + key);
-            //toast(key);
-            //logging("Before desciption");
-            //logging(ds.child(key).toString());
-            String des = ds.child("description").getValue().toString();
-            des = des.replace("#", "\n\n");
-            String number = ds.child("number").getValue().toString();
-            String location = ds.child("location").getValue().toString();
-            String price = ds.child("Price").getValue().toString();
-            String time = ds.child("time").getValue().toString();
-            logging("description hhhhh\t" + des);
-            logging("number hhhhh\t" + number);
-            logging("location hhh\t" + location);
-            logging("price hhhh\t" + price);
+
+            String des = ds.child("description").getValue().toString(); //gets description field
+            des = des.replace("#", "\n\n"); //replaces
+            String number = ds.child("number").getValue().toString(); //gets number field
+            String location = ds.child("location").getValue().toString(); //gets location field
+            String price = ds.child("Price").getValue().toString(); //gets price field
+            String time = ds.child("time").getValue().toString(); //gets time field
 
             text[cnt][0] = key;
             text[cnt][1] = des;
@@ -143,17 +135,17 @@ public class navday extends AppCompatActivity
             //toast(text[cnt]);
             // tv.setText(text[cnt]);
             cnt++;
-            Card card = new Card(key,des,"Time :\t" +time);
+            Card card = new Card(key,des,"Time :\t" +time); //pasing data to class
             cardArrayAdapter.add(card);
 
-            listView.setAdapter(cardArrayAdapter);
+            listView.setAdapter(cardArrayAdapter); //sets adapater
 
 
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
-                                        int position, long id) {
+                                        int position, long id) { //onclick for list view
                     logging("shit about to happen");
                     // TODO Auto-generated method stub
                     //toast("Shit hello");
@@ -256,6 +248,18 @@ public class navday extends AppCompatActivity
         else if (id==R.id.nav_submit)
         {
             startActivity(new Intent(getApplicationContext(), navsubmit.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.nav_1a)
+        {
+            startActivity(new Intent(getApplicationContext(), navQ1a.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.content_nav_q1_b)
+        {
+            startActivity(new Intent(getApplicationContext(), Question1B.class));
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }

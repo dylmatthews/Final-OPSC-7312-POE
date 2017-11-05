@@ -31,18 +31,18 @@ public class navsignup extends AppCompatActivity
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    SharedPreferences login;
+    private SharedPreferences login;
 
-    String prefName = "login";
+    private String prefName = "login";
 
     private  String email= "";
     private  String password="";
-    EditText em;
-    EditText pa;
-    EditText cpa;
+    private EditText em;
+    private EditText pa;
+    private EditText cpa;
     private ProgressDialog progressDialog;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //initializing
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navsignup);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -75,14 +75,14 @@ public class navsignup extends AppCompatActivity
     }
 
 
-    public void toast(String t)
+    public void toast(String t) //method used for toasting
     {
         Toast output= Toast.makeText(this, t, Toast.LENGTH_SHORT);
         output.setGravity(Gravity.CENTER,0,0);
         output.show();
     }
 
-    public void onSignUp(View view)
+    public void onSignUp(View view) //button click for login
     { try {
         email = em.getText().toString();
         password = pa.getText().toString();
@@ -222,6 +222,18 @@ public class navsignup extends AppCompatActivity
         else if (id==R.id.nav_submit)
         {
             startActivity(new Intent(getApplicationContext(), navsubmit.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.nav_1a)
+        {
+            startActivity(new Intent(getApplicationContext(), navQ1a.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.nav_1B)
+        {
+            startActivity(new Intent(getApplicationContext(), Question1B.class));
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }

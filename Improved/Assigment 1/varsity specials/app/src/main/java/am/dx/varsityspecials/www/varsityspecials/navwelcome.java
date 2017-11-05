@@ -24,7 +24,7 @@ public class navwelcome extends AppCompatActivity
     DatabaseReference myRef;
     TextView help;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) { //initializing
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navwelcome);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -35,7 +35,7 @@ public class navwelcome extends AppCompatActivity
         myRef.addValueEventListener(new ValueEventListener() {
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) { //on datachange
 
                 showData(dataSnapshot);
 
@@ -60,30 +60,17 @@ public class navwelcome extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    private void showData(DataSnapshot dataSnapshot) {
-
-
-            //Toast.makeText(this, ds.toString(), Toast.LENGTH_SHORT).show();
+    private void showData(DataSnapshot dataSnapshot) { //method for showing data
 
         DataSnapshot ds = dataSnapshot;
 
-
-
-
-
             if (ds.getKey().equals("help")) {
-                //Toast.makeText(this, ds.getKey(), Toast.LENGTH_SHORT).show();
-                String text = ds.child("help").getValue().toString();
+
+                String text = ds.child("help").getValue().toString(); //gets help field
                 text = text.replace("#","\n");
                 help.setText(text);
-               // Toast.makeText(this, , Toast.LENGTH_SHORT).show();
-                //Toast.makeText(this, ds.getValue().toString(), Toast.LENGTH_SHORT).show();
-                //Toast.makeText(this, ds.child(ds.getKey()).getValue(), Toast.LENGTH_SHORT).show();
-                // }
+
             }
-
-
-
 
     }
 
@@ -136,6 +123,18 @@ public class navwelcome extends AppCompatActivity
         else if (id==R.id.nav_submit)
         {
             startActivity(new Intent(getApplicationContext(), navsubmit.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.nav_1a)
+        {
+            startActivity(new Intent(getApplicationContext(), navQ1a.class));
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
+        else if (id==R.id.nav_1B)
+        {
+            startActivity(new Intent(getApplicationContext(), Question1B.class));
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             drawer.closeDrawer(GravityCompat.START);
         }

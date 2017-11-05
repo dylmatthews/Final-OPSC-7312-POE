@@ -14,16 +14,16 @@ public class Card {
 
 
 
-    public Card(String name, String des, String time) {
+    public Card(String name, String des, String time) { //sets data
         line1 = name;
         line2 = des;
         line3 = time;
     }
     public Card(String line1) {
         this.line1 = line1;
-    }
+    } //sets data
 
-    public Card(String location, String des, String img, int n) {
+    public Card(String location, String des, String img, int n) { //sets data
         line1 = location;
         line2 = des;
         image = img;
@@ -33,16 +33,16 @@ public class Card {
 
     public String getImage() {
         return image;
-    }
+    } //returns iamge name
 
     public String getLine1() {
         return line1;
-    }
+    } //returns line 1
 
     public String getLine2() {
         return line2;
-    }
+    } //returns line 2
 
-    public String getLine3(){return line3;}
+    public String getLine3(){return line3;} //returns line 3
 
 }
